@@ -1,10 +1,12 @@
-from flask import Flask, jsonify, request
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import IntegrityError
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///agriculture.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///agriculture.db'  # Change the database URI as per your setup
 db = SQLAlchemy(app)
 
+# Define models
 class Crop(db.Model):
     crop_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
@@ -20,7 +22,6 @@ class Field(db.Model):
     location = db.Column(db.String(255))
     soil_type = db.Column(db.String(255))
     crops = db.relationship('Crop', backref='field', lazy=True)
-    sensors = db.relationship('Sensor', backref='field', lazy=True)
 
 class Sensor(db.Model):
     sensor_id = db.Column(db.Integer, primary_key=True)
@@ -29,62 +30,49 @@ class Sensor(db.Model):
     field_id = db.Column(db.Integer, db.ForeignKey('field.field_id'))
     installation_date = db.Column(db.Date)
 
-# Endpoint to get all crops
+# Routes
 @app.route('/crops', methods=['GET'])
 def get_crops():
     crops = Crop.query.all()
-    output = []
+    crop_list = []
     for crop in crops:
-        crop_data = {}
-        crop_data['crop_id'] = crop.crop_id
-        crop_data['name'] = crop.name
-        crop_data['planting_date'] = crop.planting_date.strftime('%Y-%m-%d')
-        crop_data['harvest_date'] = crop.harvest_date.strftime('%Y-%m-%d')
-        crop_data['quantity'] = crop.quantity
-        crop_data['field_id'] = crop.field_id
-        output.append(crop_data)
-    return jsonify({'crops': output})
+        crop_list.append({
+            'crop_id': crop.crop_id,
+            'name': crop.name,
+            'planting_date': crop.planting_date.strftime('%Y-%m-%d'),
+            'harvest_date': crop.harvest_date.strftime('%Y-%m-%d'),
+            'quantity': crop.quantity,
+            'field_id': crop.field_id
+        })
+    return jsonify({'crops': crop_list})
 
-# Endpoint to create a new crop
-@app.route('/crops', methods=['POST'])
-def create_crop():
-    data = request.get_json()
-    new_crop = Crop(
-        name=data['name'],
-        planting_date=data['planting_date'],
-        harvest_date=data['harvest_date'],
-        quantity=data['quantity'],
-        field_id=data['field_id']
-    )
-    db.session.add(new_crop)
-    db.session.commit()
-    return jsonify({'message': 'Crop created successfully'}), 201
+@app.route('/fields', methods=['GET'])
+def get_fields():
+    fields = Field.query.all()
+    field_list = []
+    for field in fields:
+        field_list.append({
+            'field_id': field.field_id,
+            'name': field.name,
+            'area': field.area,
+            'location': field.location,
+            'soil_type': field.soil_type
+        })
+    return jsonify({'fields': field_list})
 
-# Endpoint to update an existing crop
-@app.route('/crops/<int:crop_id>', methods=['PUT'])
-def update_crop(crop_id):
-    crop = Crop.query.get(crop_id)
-    if not crop:
-        return jsonify({'error': 'Crop not found'}), 404
-    data = request.get_json()
-    crop.name = data['name']
-    crop.planting_date = data['planting_date']
-    crop.harvest_date = data['harvest_date']
-    crop.quantity = data['quantity']
-    crop.field_id = data['field_id']
-    db.session.commit()
-    return jsonify({'message': 'Crop updated successfully'})
-
-# Endpoint to delete a crop
-@app.route('/crops/<int:crop_id>', methods=['DELETE'])
-def delete_crop(crop_id):
-    crop = Crop.query.get(crop_id)
-    if not crop:
-        return jsonify({'error': 'Crop not found'}), 404
-    db.session.delete(crop)
-    db.session.commit()
-    return jsonify({'message': 'Crop deleted successfully'})
+@app.route('/sensors', methods=['GET'])
+def get_sensors():
+    sensors = Sensor.query.all()
+    sensor_list = []
+    for sensor in sensors:
+        sensor_list.append({
+            'sensor_id': sensor.sensor_id,
+            'name': sensor.name,
+            'type': sensor.type,
+            'field_id': sensor.field_id,
+            'installation_date': sensor.installation_date.strftime('%Y-%m-%d')
+        })
+    return jsonify({'sensors': sensor_list})
 
 if __name__ == '__main__':
-    db.create_all()
     app.run(debug=True)
