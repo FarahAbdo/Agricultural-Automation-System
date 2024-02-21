@@ -1,0 +1,28 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+input[type=password], button {
+    margin: 10px 0;
+}
+
+button{
+    padding: 10px 15px;
+    background-color: #4CAF50;
+   
+   
+}
+
+button:hover{
+    background-color: #007961;
+}

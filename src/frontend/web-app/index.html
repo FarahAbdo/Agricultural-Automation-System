@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" href="style.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel='stylesheet'>
+	<title>Automation Agriculture </title>
+	<link rel="icon" href="logo.jpg" type="image/x-icon">
+</head>
+<body>
+	
+	<!-- SIDEBAR -->
+	<!-- SIDEBAR -->
+<section id="sidebar">
+    <a href="#" class="brand"><img src='logo.jpg' alt='AdminSite Logo' style='height: 55px; width: auto;'> Agriculture Automation</a>
+    <ul class="side-menu">
+        <li><a href="#" class="active"><i class='bx bxs-dashboard icon'></i> Dashboard</a></li>
+        <li class="divider" data-text="Agriculture Management">Agriculture Management</li>
+        <li><a href="crops.html"><i  style="margin-right: 28px; margin-left: 13px;   " class='fa-solid fa-seedling'></i>      Crops</a></li>
+        <li><a href="fields.html"><i class='bx bx-landscape icon'></i> Fields</a></li>
+        <li><a href="sensors.html"><i class='bx bx-wind icon'></i> Sensors</a></li>
+    </ul>
+</section>
+
+	<!-- SIDEBAR -->
+
+	<!-- NAVBAR -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu toggle-sidebar' ></i>
+			<form action="#">
+				<div class="form-group">
+					<input type="text" placeholder="Search...">
+					<i class='bx bx-search icon' ></i>
+				</div>
+			</form>
+			<a href="#" class="nav-link">
+				<i class='bx bxs-bell icon' ></i>
+				<span class="badge">3</span>
+			</a>
+
+<!-- Notification Popup (initially hidden) -->
+<div id="notificationPopup" style="display:none;">
+    <!-- Notification content here -->
+	<ul>
+		<li>No signals recieved from FIELD 1</li>
+		<li>Project update received</li>
+		<li>Reminder: Harvest is soon for TOMATOES</li>
+	  </ul>
+
+	
+</div>
+
+			<a href="#" class="nav-link">
+				<i class='bx bxs-message-square-dots icon' ></i>
+				<span class="badge">8</span>
+			</a>
+			<span class="divider"></span>
+			<div class="profile">
+				<img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
+				<ul class="profile-link">
+					<li><a href="#"><i class='bx bxs-user-circle icon' ></i> Profile</a></li>
+					<li><a href="#"><i class='bx bxs-cog' ></i> Settings</a></li>
+					<li><a href="signIn.html"><i class='bx bxs-log-out-circle' ></i> Logout</a></li>
+				</ul>
+			</div>
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<h1 class="title">Dashboard</h1>
+			<ul class="breadcrumbs">
+				<li><a href="#">Home</a></li>
+				<li class="divider">/</li>
+				<li><a href="#" class="active">Dashboard</a></li>
+			</ul>
+			<div class="info-data">
+				<!-- Crop Summary -->
+				<div class="card">
+					<div class="head">
+						<div>
+							<h2>[Total Crops]</h2>
+							<p>Total Number of Crops</p>
+							
+						</div>
+
+						<p id="totalCrops">0</p>
+
+						<i style="color: #35aa35;" class='fa-solid fa-seedling'></i>
+					</div>
+				</div>
+				<!-- Field Summary -->
+				<div class="card">
+					<div class="head">
+						<div>
+							<h2>[Total Fields]</h2>
+							<p>Total Cultivated Fields</p>
+						</div>
+						<p id="totalFields">0</p>
+						<i class='bx bx-landscape icon'></i>
+					</div>
+				</div>
+				<!-- Sensors Summary -->
+				<div class="card">
+					<div class="head">
+						<div>
+							<h2>[Active Sensors]</h2>
+							<p>Sensors Monitoring Fields</p>
+						</div>
+						<p id="activeSensors">0</p>
+						<i class='bx bx-wind icon'></i>
+					</div>
+				</div>
+			</div>
+			<!-- Additional detailed statistics or charts can go here -->
+			<!-- <div class="data">
+				 <div class="content-data">
+					<div class="head">
+						<h3>Crop Yield Summary</h3>
+						<div class="menu">
+							<i class='bx bx-dots-horizontal-rounded icon'></i>
+							<ul class="menu-link">
+								<li><a href="#">View Details</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="chart">
+						<div id="cropYieldChart"></div>
+					</div>
+				</div class="chat-box-container">
+					<div class="chat-box">
+						<p class="day"><span>Today</span></p>
+						<div class="msg">
+							<img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
+							<div class="chat">
+								<div class="profile">
+									<span class="username">Alan</span>
+									<span class="time">18:30</span>
+								</div>
+								<p>Hello</p>
+							</div>
+						</div>
+						<div class="msg me">
+							<div class="chat">
+								<div class="profile">
+									<span class="time">18:30</span>
+								</div>
+								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque voluptatum eos quam dolores eligendi exercitationem animi nobis reprehenderit laborum! Nulla.</p>
+							</div>
+						</div>
+						<div class="msg me">
+							<div class="chat">
+								<div class="profile">
+									<span class="time">18:30</span>
+								</div>
+								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, architecto!</p>
+							</div>
+						</div>
+						<div class="msg me">
+							<div class="chat">
+								<div class="profile">
+									<span class="time">18:30</span>
+								</div>
+								<p>Lorem ipsum, dolor sit amet.</p>
+							</div>
+						</div>
+					</div>
+					<form action="#">
+						<div class="form-group">
+							<input type="text" placeholder="Type...">
+							<button type="submit" class="btn-send"><i class='bx bxs-send' ></i></button>
+						</div>
+					</form>
+				</div>
+			</div> -->
+
+			<div class="data">
+				<div class="content-data">
+					<div class="head">
+						<h3>Crop Yield Summary</h3>
+						<div class="menu">
+							<i class='bx bx-dots-horizontal-rounded icon'></i>
+							<ul class="menu-link">
+								<li><a href="#">Edit</a></li>
+								<li><a  id="save" href="#">Save</a></li>
+								<li><a href="#">Remove</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="chart">
+						<div id="cropYieldChart"></div>
+					</div>
+				</div>
+				<div class="content-data">
+					<div class="head">
+						<h3>Chatbox</h3>
+						<div class="menu">
+							<i class='bx bx-dots-horizontal-rounded icon'></i>
+							<ul class="menu-link">
+								<li><a href="#">Edit</a></li>
+								<li><a href="#">Save</a></li>
+								<li><a href="#">Remove</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="chat-box">
+						<p class="day"><span>Today</span></p>
+						<iframe src="https://web.powerva.microsoft.com/environments/Default-84c31ca0-ac3b-4eae-ad11-519d80233e6f/bots/cr5be_optiGreen/webchat?__version__=2" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+					</div>
+					<!-- <form action="#" id="chatForm">
+						<div class="form-group">
+							<input type="text" id="userMessage" placeholder="Type...">
+							<button type="submit" class="btn-send"><i class='bx bxs-send'></i></button>
+						</div>
+					</form> -->
+					
+				</div>
+			</div>
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- NAVBAR -->
+	<!-- <script>
+		document.addEventListener('DOMContentLoaded', function () {
+  const bellIcon = document.querySelector('.bxs-bell'); // Adjust the selector if necessary
+  const notificationPopup = document.getElementById('notificationPopup');
+
+  bellIcon.addEventListener('click', function(e) {
+    e.preventDefault(); // Prevent the default link action
+    notificationPopup.style.display = notificationPopup.style.display === 'none' ? 'block' : 'none';
+  });
+});
+
+	</script> -->
+
+<!-- Existing content -->
+
+<!-- New Sensor Data Section -->
+<div class="sensor-data-container">
+	
+	<div class="sensor-chart" id="sensorDataChart">
+	  <!-- Sensor chart will be rendered here -->
+	</div>
+	<div class="sensor-controls">
+	  <form>
+
+		<h2>Sensor Data</h2>
+		<input type="radio" id="temperature" name="sensorType" value="temperature">
+		<label for="temperature">Temperature</label><br>
+		<input type="radio" id="humidity" name="sensorType" value="humidity">
+		<label for="humidity">Humidity</label><br>
+		<select id="sensorNamesDropdown">
+		  <!-- Dropdown options will be added here -->
+		</select>
+	  </form>
+	</div>
+  </div>
+  
+
+  
+
+	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+	<script src="script.js"></script>
+</body>
+</html>

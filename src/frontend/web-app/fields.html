@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fields Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="fieldstyle.css"> <!-- Ensure you have a CSS file for styling -->
+    <link rel="icon" href="logo.jpg" type="image/x-icon">
+</head>
+<body>
+
+<section id="fields-page" class="container">
+
+
+    <h1 class="page-title">Fields Management</h1>
+
+
+     <!-- Add Field Form -->
+     <button id="show-add-field-form">Add New Field</button>
+     <div id="add-field-form" style="display:none;">
+         <h2>Add Field</h2>
+         <form action="#" method="post">
+             <div class="form-group">
+                 <label for="fieldName">Name:</label>
+                 <input type="text" id="fieldName" name="name" required>
+             </div>
+             <div class="form-group">
+                 <label for="fieldArea">Area (ha):</label>
+                 <input type="number" id="fieldArea" name="area" step="0.01" required>
+             </div>
+             <div class="form-group">
+                 <label for="fieldLocation">Location:</label>
+                 <input type="text" id="fieldLocation" name="location" required>
+             </div>
+             <div class="form-group">
+                 <label for="soilType">Soil Type:</label>
+                 <input type="text" id="soilType" name="soil_type" required>
+             </div>
+             <button class="submit-btn" type="submit">Add Field</button>
+         </form>
+     </div>
+ 
+     <!-- Edit Field Form (Initially hidden) -->
+     <div id="edit-field-form" style="display:none;">
+         <h2>Edit Field</h2>
+         <form action="#" method="post">
+             <!-- Assuming you will populate this form with existing field data for editing -->
+             <div class="form-group">
+                 <label for="editFieldName">Name:</label>
+                 <input type="text" id="editFieldName" name="name" required>
+             </div>
+             <div class="form-group">
+                 <label for="editFieldArea">Area (ha):</label>
+                 <input type="number" id="editFieldArea" name="area" step="0.01" required>
+             </div>
+             <div class="form-group">
+                 <label for="editFieldLocation">Location:</label>
+                 <input type="text" id="editFieldLocation" name="location" required>
+             </div>
+             <div class="form-group">
+                 <label for="editSoilType">Soil Type:</label>
+                 <input type="text" id="editSoilType" name="soil_type" required>
+             </div>
+             <button type="submit">Update Field</button>
+         </form>
+     </div>
+     
+    <div class="fields-container">
+        <!-- Fields List -->
+        <table class="fields-table">
+            <thead>
+                <tr>
+                    <th>Field ID</th>
+                    <th>Name</th>
+                    <th>Area (ha)</th>
+                    <th>Location</th>
+                    <th>Soil Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic rows will be inserted here based on the database contents -->
+                <tr>
+                    <td>1</td>
+                    <td>Field A</td>
+                    <td>10.5</td>
+                    <td>Rural Zone 5</td>
+                    <td>Loamy</td>
+                    <td>
+                        <button class="view-details-btn">View Details</button>
+                    </td>
+                </tr>
+                <!-- Repeat for other fields -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Possibly add forms or modals here for adding a new field or editing existing ones -->
+</section>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+
+<script src="script.js"></script> <!-- Ensure you have a JavaScript file for handling dynamic interactions -->
+
+<script>
+
+document.getElementById('show-add-field-form').addEventListener('click', function() {
+    var form = document.getElementById('add-field-form');
+    var addButton = document.getElementById('show-add-field-form'); // Get the 'Add New' button
+    if(form.style.display === 'none' || form.style.display === '') {
+        form.style.display = 'block'; // Show form
+        addButton.style.display = 'none'; // Hide 'Add New' button
+    } else {
+        form.style.display = 'none'; // Hide form
+        addButton.style.display = 'block'; // Show 'Add New' button
+    }
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('add-field-form');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        // Get input values
+        const name = document.getElementById('fieldName').value;
+        const area = document.getElementById('fieldArea').value;
+        const location = document.getElementById('fieldLocation').value;
+        const soilType = document.getElementById('soilType').value;
+
+        // Create a new row and cells
+        const table = document.querySelector('.fields-table tbody');
+        const row = table.insertRow();
+        const idCell = row.insertCell(0);
+        const nameCell = row.insertCell(1);
+        const areaCell = row.insertCell(2);
+        const locationCell = row.insertCell(3);
+        const soilTypeCell = row.insertCell(4);
+        const actionCell = row.insertCell(5);
+
+        // Assuming you have a mechanism to generate unique IDs
+        idCell.textContent = 'New ID'; // This should be replaced with actual logic to generate unique IDs
+        nameCell.textContent = name;
+        areaCell.textContent = area;
+        locationCell.textContent = location;
+        soilTypeCell.textContent = soilType;
+        actionCell.innerHTML = '<button class="view-details-btn">View Details</button>'; // Add action buttons or content
+
+        // Clear form fields after submission
+        document.getElementById('fieldName').value = '';
+        document.getElementById('fieldArea').value = '';
+        document.getElementById('fieldLocation').value = '';
+        document.getElementById('soilType').value = '';
+    });
+});
+
+
+</script>
+
+</body>
+</html>

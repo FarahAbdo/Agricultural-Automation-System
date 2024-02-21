@@ -1,0 +1,87 @@
+form#addCropForm {
+    margin-bottom: 20px;
+}
+
+form#addCropForm input, form#addCropForm select {
+    margin: 10px 0;
+    padding: 8px;
+    width: calc(100% - 16px);
+}
+
+form#addCropForm button , #show-add-field-form {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+form#addCropForm button:hover , #show-add-field-form:hover {
+    background-color: #007961;
+}
+
+#cropTable, #fieldsTable, #sensorsTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#cropTable th, #cropTable td, #fieldsTable th, #fieldsTable td, #sensorsTable th, #sensorsTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#cropTable tr:nth-child(even), #fieldsTable tr:nth-child(even), #sensorsTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+/* Crops Table Styling */
+#cropsTable table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#cropsTable th, #cropsTable td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+#cropsTable th {
+    background-color: #35aa35;
+    color: white;
+}
+
+#cropsTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#cropsTable tr:hover {
+    background-color: #ddd;
+}
+
+.edit-btn, .delete-btn {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+.edit-btn {
+    background-color: #4CAF50; /* Green */
+}
+
+.delete-btn {
+    background-color: #3c7e51; /* Red */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    #cropsTable th, #cropsTable td {
+        padding: 10px;
+    }
+}
+

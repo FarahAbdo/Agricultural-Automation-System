@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crops Management</title>
+    <link rel="stylesheet" href="style2.css">
+    <link rel="icon" href="logo.jpg" type="image/x-icon">
+</head>
+<body>
+    <main>
+        <main>
+            <h1 style="color: #35aa35;">Crops Management</h1>
+            <button id="show-add-field-form">Add New Crop</button>
+<div id="add-field-form" style="display:none;">
+    <!-- Your form content here -->
+    <form id="addCropForm">
+        <div class="form-group">
+            <label for="cropName">Name:</label>
+            <input type="text" id="cropName" name="name" placeholder="Name" required>
+        </div>
+        <div class="form-group">
+            <label for="plantingDate">Planting Date:</label>
+            <input type="date" id="plantingDate" name="planting_date" required>
+        </div>
+        <div class="form-group">
+            <label for="harvestDate">Harvest Date:</label>
+            <input type="date" id="harvestDate" name="harvest_date" required>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" placeholder="Quantity" required>
+        </div>
+        <div class="form-group">
+            <label for="fieldId">Field ID:</label>
+            <select id="fieldId" name="field_id">
+                <!-- Options filled with Field IDs -->
+            </select>
+        </div>
+        <button class="submit-btn" type="submit">Add Crop</button>
+    </form>
+</div>
+
+          
+            <!-- Crops Table -->
+        </main>
+        
+
+
+        <div id="cropsTable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Crop Name</th>
+                        <th>Planting Date</th>
+                        <th>Harvest Date</th>
+                        <th>Quantity</th>
+                        <th>Field ID</th>
+                        <th>Actions</th> <!-- For Edit/Delete actions if needed -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic rows will be inserted here based on crops data -->
+                </tbody>
+            </table>
+        </div>
+        
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+	<script src="script.js"></script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script>
+
+
+
+
+        fetch('https://hbknrxxpybvhrlyeqqhn.supabase.co/rest/v1/crops', {
+    method: 'GET', // Use 'POST' when submitting data
+    headers: {
+        'Content-Type': 'application/json',
+        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhia25yeHhweWJ2aHJseWVxcWhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDg0NzE4MDgsImV4cCI6MjAyNDA0NzgwOH0.SU5oeBPco98KFrxY-plChJyuo1UNBW7jCCsRQeiIpL4',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhia25yeHhweWJ2aHJseWVxcWhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDg0NzE4MDgsImV4cCI6MjAyNDA0NzgwOH0.SU5oeBPco98KFrxY-plChJyuo1UNBW7jCCsRQeiIpL4'
+    }
+})
+    .then(response => response.json())
+    .then(data => {
+        const tableBody = document.querySelector('#cropsTable tbody');
+        data.forEach(crop => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${crop.name}</td>
+                <td>${crop.planting_date}</td>
+                <td>${crop.harvest_date}</td>
+                <td>${crop.quantity}</td>
+                <td>${crop.field_id}</td>
+                <td>
+                    <!-- Example: Insert Edit/Delete buttons -->
+                    <button class="edit-btn">Edit</button>
+                    <button class="delete-btn">Delete</button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    })
+    .catch(error => console.error('Error loading crops data:', error));
+
+
+
+    document.getElementById('show-add-field-form').addEventListener('click', function() {
+    var form = document.getElementById('add-field-form');
+    var addButton = this; // 'this' refers to the button clicked
+    if(form.style.display === 'none' || form.style.display === '') {
+        form.style.display = 'block'; // Show form
+        addButton.style.display = 'none'; // Hide 'Add New' button
+    } else {
+        form.style.display = 'none'; // Hide form
+        addButton.style.display = 'block'; // Show 'Add New' button again
+    }
+});
+
+
+
+
+document.getElementById('addCropForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form from submitting the traditional way
+
+    // Retrieve form data
+    var cropName = document.getElementById('cropName').value;
+    var plantingDate = document.getElementById('plantingDate').value;
+    var harvestDate = document.getElementById('harvestDate').value;
+    var quantity = document.getElementById('quantity').value;
+    var fieldId = document.getElementById('fieldId').value;
+
+    // Create a new table row
+    var table = document.getElementById('cropsTable').getElementsByTagName('tbody')[0];
+    var newRow = table.insertRow();
+    newRow.innerHTML = `
+        <td>${cropName}</td>
+        <td>${plantingDate}</td>
+        <td>${harvestDate}</td>
+        <td>${quantity}</td>
+        <td>${fieldId}</td>
+        <td>
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+        </td>
+    `;
+
+    // Reset form fields
+    document.getElementById('addCropForm').reset();
+});
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', async function() {
+    // Initialize Supabase client
+    const supabase = supabase.createClient('https://hbknrxxpybvhrlyeqqhn.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhia25yeHhweWJ2aHJseWVxcWhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDg0NzE4MDgsImV4cCI6MjAyNDA0NzgwOH0.SU5oeBPco98KFrxY-plChJyuo1UNBW7jCCsRQeiIpL4');
+
+    // Fetch field IDs from your Supabase table
+    const { data, error } = await supabase
+        .from('fields') // Replace with your table name
+        .select('field_id'); // Assuming you want to fetch the 'id' column
+
+    if (error) {
+        console.error('Error fetching data:', error);
+        return;
+    }
+
+    // Assuming you have a select element with ID 'fieldId'
+    const fieldIdDropdown = document.getElementById('fieldId');
+    data.forEach(({ id }) => {
+        const option = new Option(id, id);
+        fieldIdDropdown.add(option);
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const fieldIdDropdown = document.getElementById('fieldId'); // Assuming 'fieldId' is the ID of your dropdown
+    const fieldIds = ['Field101', 'Field102', 'Field103']; // Example field IDs. Replace with actual field IDs.
+
+    // Iterate through each field ID and add it as an option to the dropdown
+    fieldIds.forEach(function(fieldId) {
+        const option = new Option(fieldId, fieldId); // Create new option element
+        fieldIdDropdown.add(option); // Add option to the dropdown
+    });
+});
+
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     fetch('URL_TO_FETCH_FIELD_IDS') // Replace with the actual URL to fetch field IDs
+//     .then(response => response.json())
+//     .then(data => {
+//         const fieldIdDropdown = document.getElementById('fieldId');
+//         data.forEach(field => {
+//             const option = new Option(field.id, field.id); // Assuming the field IDs are in 'id' property
+//             fieldIdDropdown.add(option);
+//         });
+//     })
+//     .catch(error => console.error('Failed to load field IDs:', error));
+// });
+
+document.getElementById('addCropForm').addEventListener('submit', async function(event) {
+    event.preventDefault(); // Prevent form from submitting the traditional way
+
+    // Retrieve form data
+    var cropName = document.getElementById('cropName').value;
+    var plantingDate = document.getElementById('plantingDate').value;
+    var harvestDate = document.getElementById('harvestDate').value;
+    var quantity = document.getElementById('quantity').value;
+    var fieldId = document.getElementById('fieldId').value;
+
+    // Supabase URL and Key
+    const supabaseUrl = 'https://hbknrxxpybvhrlyeqqhn.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhia25yeHhweWJ2aHJseWVxcWhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDg0NzE4MDgsImV4cCI6MjAyNDA0NzgwOH0.SU5oeBPco98KFrxY-plChJyuo1UNBW7jCCsRQeiIpL4'; // Use your anon key here
+
+    // Initialize Supabase client
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    // Insert data into Supabase
+    const { data, error } = await supabase.from('crops').insert([
+        { name: cropName, planting_date: plantingDate, harvest_date: harvestDate, quantity: parseInt(quantity), field_id: fieldId }
+    ]);
+
+    if (error) {
+        console.error('Error inserting data:', error);
+        return;
+    }
+
+    console.log('Data inserted:', data);
+
+    // Optionally, update the UI here to confirm the insertion
+
+    // Reset form fields
+    document.getElementById('addCropForm').reset();
+});
+
+
+
+
+    </script>
+</body>
+</html>

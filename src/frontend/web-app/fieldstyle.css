@@ -1,0 +1,130 @@
+/* Basic Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.page-title {
+    margin-bottom: 20px;
+    color: #35aa35;
+}
+
+.fields-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.fields-table thead tr {
+    background-color: #35aa35;
+    color: #ffffff;
+    text-align: left;
+}
+
+.fields-table th,
+.fields-table td {
+    padding: 12px 15px;
+}
+
+.fields-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.fields-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.fields-table tbody tr:last-of-type {
+    border-bottom: 2px solid #35aa35;
+}
+
+.view-details-btn {
+    padding: 8px 12px;
+    background-color: #35aa35;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.view-details-btn:hover {
+    background-color: #35aa35;
+}
+
+
+
+.field-form {
+    margin-top: 30px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.field-form h2 {
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.submit-btn , #show-add-field-form  {
+    background-color: #35aa35;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover  , #show-add-field-form:hover {
+    background-color: #007961;
+}
+
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .fields-table {
+        font-size: 0.9em;
+    }
+}

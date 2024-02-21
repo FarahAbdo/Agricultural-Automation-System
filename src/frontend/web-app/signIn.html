@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In Page</title>
+    <link rel="stylesheet" href="signStyle.css">
+</head>
+<body>
+    <div class="container">
+        <form id="loginForm">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <button type="submit">Sign In</button>
+        </form>
+        <button id="logoutButton" style="display:none;">Logout</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="script.js"></script>
+
+    <script>
+    
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const passwordInput = document.getElementById('password').value;
+        if(passwordInput === '4567') {
+            window.location.href = 'index.html'; // Redirect to dashboard
+        } else {
+            alert('Incorrect password.');
+        }
+    });
+    
+    // Remove the logoutButton eventListener code if not needed for redirection
+    </script>
+</body>
+</html>

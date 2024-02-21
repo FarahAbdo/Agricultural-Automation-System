@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensors Management</title>
+    <link rel="stylesheet" href="sensorstyle.css">
+    <link rel="icon" href="logo.jpg" type="image/x-icon">
+</head>
+<body>
+
+<section class="container">
+    <h1 class="page-title">Sensors Management</h1>
+
+    <div id="add-sensor-container">
+        <h2>Add Sensor</h2>
+        <button id="show-add-sensor-form">Add New Sensor</button>
+<div id="add-sensor-form" style="display:none;">
+    <!-- Your existing form content -->
+
+    
+    <form action="#" method="post"  >
+        <div class="form-group">
+            <label for="sensorName">Name:</label>
+            <input type="text" id="sensorName" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="sensorType">Type:</label>
+            <select id="sensorType" name="type" required>
+                <option value="Temperature">Temperature</option>
+                <option value="Humidity">Humidity</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="sensorFieldId">Field ID:</label>
+            <select id="sensorFieldId" name="field_id" required>
+                <!-- Options filled dynamically with Field IDs -->
+
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="installationDate">Installation Date:</label>
+            <input type="date" id="installationDate" name="installation_date" required>
+        </div>
+        <button type="submit" class="submit-btn">Add Sensor</button>
+    </form>
+</div>
+
+
+
+    </div>
+
+    <!-- Sensor List Table -->
+    <div class="sensors-container">
+        <table class="sensors-table">
+            <thead>
+                <tr>
+                    <th>Sensor ID</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Field ID</th>
+                    <th>Installation Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic rows will be inserted here based on the database contents -->
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="script.js"></script>
+
+<script>
+
+document.getElementById('show-add-sensor-form').addEventListener('click', function() {
+    var form = document.getElementById('add-sensor-form');
+    var addButton = this; // 'this' refers to the button clicked
+    if(form.style.display === 'none' || form.style.display === '') {
+        form.style.display = 'block'; // Show form
+        addButton.style.display = 'none'; // Hide 'Add New' button
+    } else {
+        form.style.display = 'none'; // Hide form
+        addButton.style.display = 'block'; // Show 'Add New' button again
+    }
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Attach an event listener to the form submission
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        // Get input values
+        const sensorName = document.getElementById('sensorName').value;
+        const sensorType = document.getElementById('sensorType').value;
+        const sensorFieldId = document.getElementById('sensorFieldId').value;
+        const installationDate = document.getElementById('installationDate').value;
+
+        // Access the table's tbody
+        const tableBody = document.querySelector('.sensors-table tbody');
+
+        // Create a new row
+        const newRow = tableBody.insertRow();
+
+        // Insert cells and set their text content
+        newRow.insertCell(0).textContent = 'Auto'; // Placeholder for Sensor ID, assuming it's auto-generated
+        newRow.insertCell(1).textContent = sensorName;
+        newRow.insertCell(2).textContent = sensorType;
+        newRow.insertCell(3).textContent = sensorFieldId;
+        newRow.insertCell(4).textContent = installationDate;
+        newRow.insertCell(5).innerHTML = '<button class="button-action">Action</button>'; // Placeholder for any action buttons
+
+        // Clear the form fields
+        form.reset();
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const fieldIdDropdown = document.getElementById('sensorFieldId'); // Assuming 'sensorFieldId' is the ID of your dropdown
+    const fieldIds = ['Field1', 'Field2', 'Field3']; // Example field IDs. Replace with actual field IDs.
+
+    // Iterate through each field ID and add it as an option to the dropdown
+    fieldIds.forEach(function(fieldId) {
+        const option = new Option(fieldId, fieldId); // Create new option element
+        fieldIdDropdown.add(option); // Add option to the dropdown
+    });
+});
+
+
+</script>
+</body>
+</html>
